@@ -1,5 +1,9 @@
 import streamlit as st
 
+# Título y subtítulo de la aplicación
+st.title("Gen Programación")
+st.subheader("Programa las células para poder llegar al objetivo")
+
 # Función para determinar si el estudiante ha respondido correctamente
 def verificar_respuestas(correctas, respuestas):
     return all(respuestas[gen] == correctas[gen] for gen in correctas)
