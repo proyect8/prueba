@@ -9,7 +9,7 @@ def verificar_respuestas(correctas, respuestas):
     return all(respuestas[gen] == correctas[gen] for gen in correctas)
 
 # Formulario para hepatocito
-st.title("Transformación de Célula Madre en Hepatocito")
+st.subheader("Transformación de Célula Madre en Hepatocito")
 
 st.write("Responde 'True' o 'False' para las siguientes funciones del hepatocito:")
 
@@ -24,7 +24,7 @@ hepatocito_respuestas = {
 }
 
 # Formulario para neuronas
-st.title("Transformación de Célula Madre en Neuronas")
+st.subheader("Transformación de Célula Madre en Neuronas")
 
 st.write("Responde 'True' o 'False' para las siguientes funciones de las neuronas:")
 
@@ -37,7 +37,7 @@ neurona_respuestas = {
 }
 
 # Formulario para conos
-st.title("Transformación de Célula Madre en Conos")
+st.subheader("Transformación de Célula Madre en Conos")
 
 st.write("Responde 'True' o 'False' para las siguientes funciones de los conos:")
 
