@@ -1,97 +1,99 @@
 import streamlit as st
 
-# Definir las opciones de genes
-genes = {
-    "Descompone y sintetiza grasas (Hepatocito)": "",
-    "Detoxifica: elimina toxinas (Hepatocito)": "",
-    "Producción de bilis (Hepatocito)": "",
-    "Almacena glucosa en forma de glucógeno (Hepatocito)": "",
-    "Síntesis de proteínas (Hepatocito)": "",
-    "Control de la apoptosis (Hepatocito)": "",
-    
-    "Transmiten impulsos eléctricos (Neurona)": "",
-    "Procesan información motora, sensorial y cognitiva (Neurona)": "",
-    "Formación de sinapsis (Neurona)": "",
-    "Libera neurotransmisores (Neurona)": "",
-    
-    "Detección de colores rojo, verde y azul (Conos)": "",
-    "Detección de luz brillante (Conos)": "",
-    "Visión de alta resolución (Conos)": "",
-    "Responsable de la visión diurna (Conos)": "",
-    
-    "No forma parte de ninguna de estas células": ""
+# Función para determinar si el estudiante ha respondido correctamente
+def verificar_respuestas(correctas, respuestas):
+    return all(respuestas[gen] == correctas[gen] for gen in correctas)
+
+# Formulario para hepatocito
+st.title("Transformación de Célula Madre en Hepatocito")
+
+st.write("Responde 'True' o 'False' para las siguientes funciones del hepatocito:")
+
+hepatocito_respuestas = {
+    "Descompone y sintetiza grasas": st.text_input("Descompone y sintetiza grasas"),
+    "Detoxifica: elimina toxinas": st.text_input("Detoxifica: elimina toxinas"),
+    "Producción de bilis": st.text_input("Producción de bilis"),
+    "Almacena glucosa en forma de glucógeno": st.text_input("Almacena glucosa en forma de glucógeno"),
+    "Síntesis de proteínas": st.text_input("Síntesis de proteínas"),
+    "Control de la apoptosis": st.text_input("Control de la apoptosis"),
+    "No forma parte de un hepatocito": st.text_input("No forma parte de un hepatocito")
 }
 
-# Título de la aplicación
-st.title("Transformación de Células Madre")
+# Formulario para neuronas
+st.title("Transformación de Célula Madre en Neuronas")
 
-# Descripción del ejercicio
-st.write("Escribe 'True' o 'False' para las funciones correspondientes de cada célula.")
+st.write("Responde 'True' o 'False' para las siguientes funciones de las neuronas:")
 
-# Crear un formulario para los genes
-with st.form("formulario_genes"):
-    genes_respuestas = {}
-    for gen, valor in genes.items():
-        genes_respuestas[gen] = st.text_input(gen)
-    
-    # Botón para enviar las respuestas
-    submitted = st.form_submit_button("Finalizar")
+neurona_respuestas = {
+    "Transmiten impulsos eléctricos": st.text_input("Transmiten impulsos eléctricos"),
+    "Procesan información motora, sensorial y cognitiva": st.text_input("Procesan información motora, sensorial y cognitiva"),
+    "Formación de sinapsis": st.text_input("Formación de sinapsis"),
+    "Libera neurotransmisores": st.text_input("Libera neurotransmisores"),
+    "No forma parte de una neurona": st.text_input("No forma parte de una neurona")
+}
 
-# Definir la lógica de transformación celular
-def determinar_tipo_celula(genes_respuestas):
-    # Respuestas correctas para hepatocito
-    hepatocito_respuestas = {
-        "Descompone y sintetiza grasas (Hepatocito)": "True",
-        "Detoxifica: elimina toxinas (Hepatocito)": "True",
-        "Producción de bilis (Hepatocito)": "True",
-        "Almacena glucosa en forma de glucógeno (Hepatocito)": "True",
-        "Síntesis de proteínas (Hepatocito)": "True",
-        "Control de la apoptosis (Hepatocito)": "True"
+# Formulario para conos
+st.title("Transformación de Célula Madre en Conos")
+
+st.write("Responde 'True' o 'False' para las siguientes funciones de los conos:")
+
+conos_respuestas = {
+    "Detección de colores rojo, verde y azul": st.text_input("Detección de colores rojo, verde y azul"),
+    "Detección de luz brillante": st.text_input("Detección de luz brillante"),
+    "Visión de alta resolución": st.text_input("Visión de alta resolución"),
+    "Responsable de la visión diurna": st.text_input("Responsable de la visión diurna"),
+    "No forma parte de un cono": st.text_input("No forma parte de un cono")
+}
+
+# Botón para finalizar
+if st.button("Finalizar"):
+    # Respuestas correctas para cada tipo de célula
+    respuestas_correctas_hepatocito = {
+        "Descompone y sintetiza grasas": "True",
+        "Detoxifica: elimina toxinas": "True",
+        "Producción de bilis": "True",
+        "Almacena glucosa en forma de glucógeno": "True",
+        "Síntesis de proteínas": "True",
+        "Control de la apoptosis": "True",
+        "No forma parte de un hepatocito": "False"
     }
     
-    # Respuestas correctas para neuronas
-    neurona_respuestas = {
-        "Transmiten impulsos eléctricos (Neurona)": "True",
-        "Procesan información motora, sensorial y cognitiva (Neurona)": "True",
-        "Formación de sinapsis (Neurona)": "True",
-        "Libera neurotransmisores (Neurona)": "True"
+    respuestas_correctas_neurona = {
+        "Transmiten impulsos eléctricos": "True",
+        "Procesan información motora, sensorial y cognitiva": "True",
+        "Formación de sinapsis": "True",
+        "Libera neurotransmisores": "True",
+        "No forma parte de una neurona": "False"
     }
     
-    # Respuestas correctas para conos
-    conos_respuestas = {
-        "Detección de colores rojo, verde y azul (Conos)": "True",
-        "Detección de luz brillante (Conos)": "True",
-        "Visión de alta resolución (Conos)": "True",
-        "Responsable de la visión diurna (Conos)": "True"
+    respuestas_correctas_conos = {
+        "Detección de colores rojo, verde y azul": "True",
+        "Detección de luz brillante": "True",
+        "Visión de alta resolución": "True",
+        "Responsable de la visión diurna": "True",
+        "No forma parte de un cono": "False"
     }
     
-    # Respuesta incorrecta (fuera de las funciones)
-    otras_respuestas = {
-        "No forma parte de ninguna de estas células": "False"
-    }
+    # Verificar las respuestas para cada tipo de célula
+    correcto_hepatocito = verificar_respuestas(respuestas_correctas_hepatocito, hepatocito_respuestas)
+    correcto_neurona = verificar_respuestas(respuestas_correctas_neurona, neurona_respuestas)
+    correcto_conos = verificar_respuestas(respuestas_correctas_conos, conos_respuestas)
     
-    # Comprobar si las respuestas coinciden con alguna célula
-    if all(genes_respuestas[gen] == hepatocito_respuestas.get(gen, "False") for gen in hepatocito_respuestas) and genes_respuestas["No forma parte de ninguna de estas células"] == "False":
-        return "Hepatocito"
-    elif all(genes_respuestas[gen] == neurona_respuestas.get(gen, "False") for gen in neurona_respuestas) and genes_respuestas["No forma parte de ninguna de estas células"] == "False":
-        return "Neurona"
-    elif all(genes_respuestas[gen] == conos_respuestas.get(gen, "False") for gen in conos_respuestas) and genes_respuestas["No forma parte de ninguna de estas células"] == "False":
-        return "Cono"
+    # Mostrar resultados
+    if correcto_hepatocito:
+        st.success("¡Has transformado correctamente la célula en un Hepatocito!")
+        st.image("https://example.com/hepatocito.png")  # Cambia por la URL real de la imagen del hepatocito
     else:
-        return "Célula madre no diferenciada"
-
-# Mostrar el resultado cuando se envíen los datos
-if submitted:
-    tipo_celula = determinar_tipo_celula(genes_respuestas)
+        st.error("No has logrado transformar correctamente en Hepatocito.")
     
-    if tipo_celula == "Hepatocito":
-        st.success("¡Has transformado la célula en un **Hepatocito**!")
-        st.image("https://example.com/hepatocito.png")  # Imagen del hepatocito
-    elif tipo_celula == "Neurona":
-        st.success("¡Has transformado la célula en una **Neurona**!")
-        st.image("https://example.com/neurona.png")  # Imagen de la neurona
-    elif tipo_celula == "Cono":
-        st.success("¡Has transformado la célula en un **Cono**!")
-        st.image("https://example.com/conos.png")  # Imagen de los conos
+    if correcto_neurona:
+        st.success("¡Has transformado correctamente la célula en una Neurona!")
+        st.image("https://example.com/neurona.png")  # Cambia por la URL real de la imagen de la neurona
     else:
-        st.warning("No has logrado transformar correctamente la célula.")
+        st.error("No has logrado transformar correctamente en Neurona.")
+    
+    if correcto_conos:
+        st.success("¡Has transformado correctamente la célula en un Cono!")
+        st.image("https://example.com/conos.png")  # Cambia por la URL real de la imagen de los conos
+    else:
+        st.error("No has logrado transformar correctamente en Cono.")
