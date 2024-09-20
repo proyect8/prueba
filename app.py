@@ -82,7 +82,7 @@ if st.button("Finalizar"):
     # Mostrar resultados
     if correcto_hepatocito:
         st.success("¡Has transformado correctamente la célula en un Hepatocito!")
-        st.image("https://raw.githubusercontent.com/proyect8/prueba/fbf5f39c954ce635d1a4598dfb0b97a222b74d7c/hepatocyte_image.jpeg")  # Cambia por la URL real de la imagen del hepatocito
+        st.image("https://raw.githubusercontent.com/proyect8/prueba/fbf5f39c954ce635d1a4598dfb0b97a222b74d7c/hepatocyte_image.jpeg, width=300")  # Cambia por la URL real de la imagen del hepatocito
     else:
         st.error("No has logrado transformar correctamente en Hepatocito.")
     
