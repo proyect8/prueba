@@ -6,11 +6,12 @@ st.subheader("Programa las células para poder llegar al objetivo")
 
 # Función para determinar si el estudiante ha respondido correctamente
 def verificar_respuestas(correctas, respuestas):
-    return all(respuestas[gen] == correctas[gen] for gen in correctas)
+    aciertos = sum(respuestas[gen] == correctas[gen] for gen in correctas)
+    total = len(correctas)
+    return aciertos, total
 
 # Formulario para hepatocito
 st.subheader("Transformación de Célula Madre en Hepatocito")
-
 st.write("Responde 'True' o 'False' para las siguientes funciones del hepatocito:")
 
 hepatocito_respuestas = {
@@ -25,7 +26,6 @@ hepatocito_respuestas = {
 
 # Formulario para neuronas
 st.subheader("Transformación de Célula Madre en Neuronas")
-
 st.write("Responde 'True' o 'False' para las siguientes funciones de las neuronas:")
 
 neurona_respuestas = {
@@ -38,7 +38,6 @@ neurona_respuestas = {
 
 # Formulario para conos
 st.subheader("Transformación de Célula Madre en Conos")
-
 st.write("Responde 'True' o 'False' para las siguientes funciones de los conos:")
 
 conos_respuestas = {
@@ -79,25 +78,27 @@ if st.button("Finalizar"):
     }
     
     # Verificar las respuestas para cada tipo de célula
-    correcto_hepatocito = verificar_respuestas(respuestas_correctas_hepatocito, hepatocito_respuestas)
-    correcto_neurona = verificar_respuestas(respuestas_correctas_neurona, neurona_respuestas)
-    correcto_conos = verificar_respuestas(respuestas_correctas_conos, conos_respuestas)
+    aciertos_hepatocito, total_hepatocito = verificar_respuestas(respuestas_correctas_hepatocito, hepatocito_respuestas)
+    aciertos_neurona, total_neurona = verificar_respuestas(respuestas_correctas_neurona, neurona_respuestas)
+    aciertos_conos, total_conos = verificar_respuestas(respuestas_correctas_conos, conos_respuestas)
     
     # Mostrar resultados
-    if correcto_hepatocito:
-        st.success("¡Has transformado correctamente la célula en un Hepatocito!")
-        st.image("https://raw.githubusercontent.com/proyect8/prueba/fbf5f39c954ce635d1a4598dfb0b97a222b74d7c/hepatocyte_image.jpeg", width=300)  # Cambia por la URL real de la imagen del hepatocito
-    else:
-        st.error("No has logrado transformar correctamente en Hepatocito.")
+    st.subheader("Resultados")
     
-    if correcto_neurona:
-        st.success("¡Has transformado correctamente la célula en una Neurona!")
-        st.image("https://example.com/neurona.png")  # Cambia por la URL real de la imagen de la neurona
+    if aciertos_hepatocito == total_hepatocito:
+        st.success(f"¡Has transformado correctamente la célula en un Hepatocito! Aciertos: {aciertos_hepatocito}/{total_hepatocito}")
+        st.image("https://raw.githubusercontent.com/proyect8/prueba/fbf5f39c954ce635d1a4598dfb0b97a222b74d7c/hepatocyte_image.jpeg", width=300)
     else:
-        st.error("No has logrado transformar correctamente en Neurona.")
+        st.error(f"No has logrado transformar correctamente en Hepatocito. Aciertos: {aciertos_hepatocito}/{total_hepatocito}")
     
-    if correcto_conos:
-        st.success("¡Has transformado correctamente la célula en un Cono!")
-        st.image("https://example.com/conos.png")  # Cambia por la URL real de la imagen de los conos
+    if aciertos_neurona == total_neurona:
+        st.success(f"¡Has transformado correctamente la célula en una Neurona! Aciertos: {aciertos_neurona}/{total_neurona}")
+        st.image("https://example.com/neurona.png", width=300)
     else:
-        st.error("No has logrado transformar correctamente en Cono.")
+        st.error(f"No has logrado transformar correctamente en Neurona. Aciertos: {aciertos_neurona}/{total_neurona}")
+    
+    if aciertos_conos == total_conos:
+        st.success(f"¡Has transformado correctamente la célula en un Cono! Aciertos: {aciertos_conos}/{total_conos}")
+        st.image("https://example.com/conos.png", width=300)
+    else:
+        st.error(f"No has logrado transformar correctamente en Cono. Aciertos: {aciertos_conos}/{total_conos}")
