@@ -14,7 +14,7 @@ def analizar_codigo(codigo):
 
         # Recorremos el árbol de sintaxis abstracta (AST) para analizar las condiciones
         for node in ast.walk(tree):
-            if isinstance(node, ast.If):
+            if isinstance(node, ast.If) or isinstance(node, ast.IfExp):
                 variable = node.test.left.attr  # La variable de la condición (ej: gene_visiondiurna)
                 valor = ast.literal_eval(node.test.comparators[0])  # El valor booleano (ej: False)
                 condiciones[variable] = valor
