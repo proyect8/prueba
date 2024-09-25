@@ -5,7 +5,7 @@ import ast
 st.title("Gen Programación")
 st.subheader("Escribe las condiciones de activación de los genes usando lógica de programación para convertir la célula madre en un Hepatocito")
 
-# Función para analizar el código y extraer las condiciones
+# Nueva versión de la función para analizar el código y extraer las condiciones
 def analizar_codigo(codigo):
     try:
         # Parseamos el código ingresado
@@ -15,9 +15,13 @@ def analizar_codigo(codigo):
         # Recorremos el árbol de sintaxis abstracta (AST) para analizar las condiciones
         for node in ast.walk(tree):
             if isinstance(node, ast.If):
-                variable = node.test.left.id  # La variable de la condición (ej: gene_visiondiurna)
-                valor = ast.literal_eval(node.test.comparators[0])  # El valor booleano (ej: False)
-                condiciones[variable] = valor
+                if isinstance(node.test, ast.Compare):
+                    variable = node.test.left.id  # La variable de la condición (ej: gene_visiondiurna)
+                    if isinstance(node.test.comparators[0], ast.NameConstant):
+                        valor = node.test.comparators[0].value  # El valor booleano (ej: False o True)
+                    elif isinstance(node.test.comparators[0], ast.Constant):
+                        valor = node.test.comparators[0].value  # En Python 3.8+, el valor se encuentra en 'value'
+                    condiciones[variable] = valor
 
         return condiciones, None
     except Exception as e:
