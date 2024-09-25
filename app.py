@@ -50,7 +50,7 @@ elif gene_controlpresionarterial == False:
 """, language='python')
 
 # Entrada de código por parte del estudiante
-codigo_usuario = st.text_area("Escribe tu código aquí:")
+codigo_usuario = st.text_area("Escribe tus condiciones aquí (solo if y elif):")
 
 # Botón para finalizar
 if st.button("Finalizar"):
