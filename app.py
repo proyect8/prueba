@@ -2,49 +2,49 @@ import streamlit as st
 
 # Título y subtítulo de la aplicación
 st.title("Gen Programación")
-st.subheader("Programa las células para poder llegar al objetivo")
+st.subheader("Activa y desactiva estos genes mediante comandos de programación para convertir la célula madre en un Hepatocito")
 
-# Función para determinar si el estudiante ha respondido correctamente y contar aciertos
-def verificar_respuestas(correctas, respuestas):
+# Función para verificar si los genes están correctamente activados/desactivados
+def verificar_genes(correctas, respuestas):
     aciertos = sum(respuestas[gen] == correctas[gen] for gen in correctas)
     total = len(correctas)
     return aciertos, total
 
-# Formulario para hepatocito
-st.subheader("Transformación de Célula Madre en Hepatocito")
-st.write("Responde 'True' o 'False' para las siguientes funciones del hepatocito:")
+# Formulario para activación/desactivación de genes
+st.write("Escribe 'True' para activar o 'False' para desactivar los siguientes genes:")
 
-hepatocito_respuestas = {
-    "Descompone y sintetiza grasas": st.text_input("Descompone y sintetiza grasas"),
-    "Detoxifica: elimina toxinas": st.text_input("Detoxifica: elimina toxinas"),
-    "Producción de bilis": st.text_input("Producción de bilis"),
-    "Almacena glucosa en forma de glucógeno": st.text_input("Almacena glucosa en forma de glucógeno"),
-    "Síntesis de proteínas": st.text_input("Síntesis de proteínas"),
-    "Control de la apoptosis": st.text_input("Control de la apoptosis"),
-    "No forma parte de un hepatocito": st.text_input("No forma parte de un hepatocito")
+gene_respuestas = {
+    "Gene_VisiónDiurna": st.text_input("Gene_VisiónDiurna"),
+    "Gene_FormaciónOrina": st.text_input("Gene_FormaciónOrina"),
+    "Gene_MantenimientoGlucosa": st.text_input("Gene_MantenimientoGlucosa"),
+    "Gene_LiberaciónÁcidosGrasos": st.text_input("Gene_LiberaciónÁcidosGrasos"),
+    "Gene_SintesisProteinas": st.text_input("Gene_SintesisProteinas"),
+    "Gene_ControlApoptosis": st.text_input("Gene_ControlApoptosis"),
+    "Gene_ControlPresiónArterial": st.text_input("Gene_ControlPresiónArterial")
 }
 
 # Botón para finalizar
 if st.button("Finalizar"):
-    # Respuestas correctas para el hepatocito
-    respuestas_correctas_hepatocito = {
-        "Descompone y sintetiza grasas": "True",
-        "Detoxifica: elimina toxinas": "True",
-        "Producción de bilis": "True",
-        "Almacena glucosa en forma de glucógeno": "True",
-        "Síntesis de proteínas": "True",
-        "Control de la apoptosis": "True",
-        "No forma parte de un hepatocito": "False"
+    # Respuestas correctas para convertir en Hepatocito
+    respuestas_correctas = {
+        "Gene_VisiónDiurna": "False",
+        "Gene_FormaciónOrina": "False",
+        "Gene_MantenimientoGlucosa": "True",
+        "Gene_LiberaciónÁcidosGrasos": "True",
+        "Gene_SintesisProteinas": "True",
+        "Gene_ControlApoptosis": "True",
+        "Gene_ControlPresiónArterial": "False"
     }
 
-    # Verificar las respuestas para el hepatocito
-    aciertos_hepatocito, total_hepatocito = verificar_respuestas(respuestas_correctas_hepatocito, hepatocito_respuestas)
+    # Verificar las respuestas de los genes
+    aciertos, total = verificar_genes(respuestas_correctas, gene_respuestas)
 
     # Mostrar resultados
     st.subheader("Resultados")
-
-    if aciertos_hepatocito == total_hepatocito:
-        st.success(f"¡Has transformado correctamente la célula en un Hepatocito! Aciertos: {aciertos_hepatocito}/{total_hepatocito}")
-        st.image("https://raw.githubusercontent.com/proyect8/prueba/fbf5f39c954ce635d1a4598dfb0b97a222b74d7c/hepatocyte_image.jpeg", width=300)  # Imagen del Hepatocito
+    
+    if aciertos == total:
+        st.success(f"¡Has activado correctamente los genes para convertir la célula en un Hepatocito! Aciertos: {aciertos}/{total}")
+        # Mostrar la imagen desde la ruta local
+        st.image("hepatocyte_image.jpeg", width=300)  # Imagen del Hepatocito desde la ruta local
     else:
-        st.error(f"No has logrado transformar correctamente en Hepatocito. Aciertos: {aciertos_hepatocito}/{total_hepatocito}")
+        st.error(f"No has logrado activar correctamente los genes. Aciertos: {aciertos}/{total}")
