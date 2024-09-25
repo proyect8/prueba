@@ -1,53 +1,67 @@
 import streamlit as st
+import ast
 
 # Título y subtítulo de la aplicación
 st.title("Gen Programación")
-st.subheader("Escribe el código en Python para activar y desactivar los genes y convertir la célula madre en un Hepatocito")
+st.subheader("Escribe las condiciones de activación de los genes usando lógica de programación para convertir la célula madre en un Hepatocito")
 
-# Explicación para el estudiante
-st.write("Escribe el código utilizando condicionales como `if`, `elif`, y `else` para activar o desactivar los genes. Por ejemplo:")
-st.code("""
-if gene_visiondiurna == False:
-    gene_visiondiurna = False
-elif gene_formacionorina == False:
-    gene_formacionorina = False
-""", language="python")
+# Función para analizar el código y extraer las condiciones
+def analizar_codigo(codigo):
+    try:
+        # Parseamos el código ingresado
+        tree = ast.parse(codigo)
+        condiciones = {}
 
-# Input para que el estudiante escriba el "código"
-codigo_estudiante = st.text_area("Escribe tu código aquí:")
+        # Recorremos el árbol de sintaxis abstracta (AST) para analizar las condiciones
+        for node in ast.walk(tree):
+            if isinstance(node, ast.If):
+                variable = node.test.left.attr  # La variable de la condición (ej: gene_visiondiurna)
+                valor = ast.literal_eval(node.test.comparators[0])  # El valor booleano (ej: False)
+                condiciones[variable] = valor
 
-# Botón para evaluar el código
-if st.button("Evaluar Código"):
-    # Definir las respuestas correctas
+        return condiciones, None
+    except Exception as e:
+        return None, str(e)
+
+# Función para verificar si los genes están correctamente activados/desactivados
+def verificar_genes(condiciones):
     respuestas_correctas = {
         "gene_visiondiurna": False,
-        "gene_formacionorina": False,
+        "formacionorina": False,
         "gene_mantenimientoglucosa": True,
         "gene_liberacionacidosgrasos": True,
         "gene_sintesisproteinas": True,
         "gene_controlapoptosis": True,
         "gene_controlpresionarterial": False
     }
-    
-    # Diccionario para guardar las respuestas del estudiante
-    respuestas_estudiante = {
-        "gene_visiondiurna": None,
-        "gene_formacionorina": None,
-        "gene_mantenimientoglucosa": None,
-        "gene_liberacionacidosgrasos": None,
-        "gene_sintesisproteinas": None,
-        "gene_controlapoptosis": None,
-        "gene_controlpresionarterial": None
-    }
+    aciertos = sum(respuestas_correctas.get(gen) == cond for gen, cond in condiciones.items())
+    total = len(respuestas_correctas)
+    return aciertos, total
 
-    # Evaluar el código del estudiante de manera segura
-    try:
-        # Ejecutar el código del estudiante
-        exec(codigo_estudiante, {}, respuestas_estudiante)
+# Ejemplo de cómo debe ingresar el código el estudiante
+st.code("""
+if self.gene_visiondiurna == False:
+elif self.formacionorina == False:
+elif self.gene_mantenimientoglucosa == True:
+elif self.gene_liberacionacidosgrasos == True:
+elif self.gene_sintesisproteinas == True:
+elif self.gene_controlapoptosis == True:
+elif self.gene_controlpresionarterial == False:
+""", language='python')
 
-        # Verificar cuántos aciertos tiene el estudiante
-        aciertos = sum(respuestas_estudiante[gen] == respuestas_correctas[gen] for gen in respuestas_correctas)
-        total = len(respuestas_correctas)
+# Entrada de código por parte del estudiante
+codigo_usuario = st.text_area("Escribe tu código aquí:")
+
+# Botón para finalizar
+if st.button("Finalizar"):
+    # Analizar el código ingresado
+    condiciones, error = analizar_codigo(codigo_usuario)
+
+    if error:
+        st.error(f"Error en el código: {error}")
+    elif condiciones:
+        # Verificar si las condiciones son correctas
+        aciertos, total = verificar_genes(condiciones)
 
         # Mostrar resultados
         if aciertos == total:
@@ -55,8 +69,5 @@ if st.button("Evaluar Código"):
             st.image("hepatocyte_image.jpeg", width=300)  # Imagen del Hepatocito desde la ruta local
         else:
             st.error(f"No has logrado activar correctamente los genes. Aciertos: {aciertos}/{total}")
-            st.write("Revisa el código que has escrito.")
-    
-    except Exception as e:
-        st.error(f"Error en el código: {e}")
-        st.write("Asegúrate de que el código esté bien escrito y que uses correctamente las condicionales.")
+    else:
+        st.error("No se encontraron condiciones válidas en tu código.")
