@@ -5,18 +5,18 @@ import ast
 st.title("Gen Programación")
 st.subheader("Escribe las condiciones de activación de los genes usando lógica de programación para convertir la célula madre en un Hepatocito")
 
-# Función para analizar el código y extraer las condiciones
+# Función para analizar las comparaciones de condiciones
 def analizar_codigo(codigo):
     try:
         # Parseamos el código ingresado
         tree = ast.parse(codigo)
         condiciones = {}
 
-        # Recorremos el árbol de sintaxis abstracta (AST) para analizar las condiciones
+        # Recorremos el árbol de sintaxis abstracta (AST) para analizar las comparaciones
         for node in ast.walk(tree):
-            if isinstance(node, ast.If) or isinstance(node, ast.IfExp):
-                variable = node.test.left.attr  # La variable de la condición (ej: gene_visiondiurna)
-                valor = ast.literal_eval(node.test.comparators[0])  # El valor booleano (ej: False)
+            if isinstance(node, ast.Compare):  # Para comparar las expresiones (condiciones)
+                variable = node.left.attr  # La variable de la condición (ej: gene_visiondiurna)
+                valor = ast.literal_eval(node.comparators[0])  # El valor booleano (ej: False)
                 condiciones[variable] = valor
 
         return condiciones, None
@@ -40,17 +40,17 @@ def verificar_genes(condiciones):
 
 # Ejemplo de cómo debe ingresar el código el estudiante
 st.code("""
-if self.gene_visiondiurna == False:
-elif self.formacionorina == False:
-elif self.gene_mantenimientoglucosa == True:
-elif self.gene_liberacionacidosgrasos == True:
-elif self.gene_sintesisproteinas == True:
-elif self.gene_controlapoptosis == True:
-elif self.gene_controlpresionarterial == False:
+self.gene_visiondiurna == False
+self.formacionorina == False
+self.gene_mantenimientoglucosa == True
+self.gene_liberacionacidosgrasos == True
+self.gene_sintesisproteinas == True
+self.gene_controlapoptosis == True
+self.gene_controlpresionarterial == False
 """, language='python')
 
 # Entrada de código por parte del estudiante
-codigo_usuario = st.text_area("Escribe tu código aquí:")
+codigo_usuario = st.text_area("Escribe tu código aquí (solo condiciones):")
 
 # Botón para finalizar
 if st.button("Finalizar"):
