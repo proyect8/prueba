@@ -7,10 +7,10 @@ st.subheader("Escribe el código en Python para activar y desactivar los genes y
 # Explicación para el estudiante
 st.write("Escribe el código utilizando condicionales como `if`, `elif`, y `else` para activar o desactivar los genes. Por ejemplo:")
 st.code("""
-if self.gene_visiondiurna == False:
-    pass
-elif self.gene_formacionorina == False:
-    pass
+if gene_visiondiurna == False:
+    gene_visiondiurna = False
+elif gene_formacionorina == False:
+    gene_formacionorina = False
 """, language="python")
 
 # Input para que el estudiante escriba el "código"
