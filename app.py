@@ -45,19 +45,19 @@ def verificar_genes(condiciones):
 # Ejemplo de cómo debe ingresar el código el estudiante
 st.code("""
 if gene_visiondiurna == False:
-pass
+    pass
 elif formacionorina == False:
-pass
+    pass
 elif gene_mantenimientoglucosa == True:
-pass
+    pass
 elif gene_liberacionacidosgrasos == True:
-pass
+    pass
 elif gene_sintesisproteinas == True:
-pass
+    pass
 elif gene_controlapoptosis == True:
-pass
+    pass
 elif gene_controlpresionarterial == False:
-pass
+    pass
 """, language='python')
 
 # Entrada de código por parte del estudiante
